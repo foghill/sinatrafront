@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Button, Header, Input, List } from 'semantic-ui-react';
 
 function TodoList() {
   const [todos, setTodos] = useState([]);
@@ -46,36 +47,35 @@ function TodoList() {
     fetch(`http://localhost:9292/todos/${id}`, {
       method: 'DELETE'
     })
-      .then(response => response.json())
-      .then(data => {
-        const filteredTodos = todos.filter(todo => todo.id !== data.id);
+      .then(() => {
+        const filteredTodos = todos.filter(todo => todo.id !== id);
         setTodos(filteredTodos);
       });
   };
 
   return (
     <div>
-      <h1>Todo List</h1>
-      <ul>
+      <Header as="h1">Todo List</Header>
+      <List>
         {todos.map(todo => (
-          <li key={todo.id}>
-            <input
+          <List.Item key={todo.id}>
+            <Input
               type="text"
               value={todo.title}
               onChange={event => updateTodo(todo.id, event.target.value)}
             />
-            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
-          </li>
+            <Button onClick={() => deleteTodo(todo.id)}>Delete</Button>
+          </List.Item>
         ))}
-        <li>
-          <input
+        <List.Item>
+          <Input
             type="text"
             value={newTodo}
             onChange={event => setNewTodo(event.target.value)}
           />
-          <button onClick={addTodo}>Add</button>
-        </li>
-      </ul>
+          <Button onClick={addTodo}>Add</Button>
+        </List.Item>
+      </List>
     </div>
   );
 }
