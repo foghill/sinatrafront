@@ -4,6 +4,8 @@ import { Button, Header, Input, List } from 'semantic-ui-react';
 function TodoList() {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
+  const [editingId, setEditingId] = useState(null);
+  const [editingTitle, setEditingTitle] = useState('');
 
   useEffect(() => {
     fetch('http://localhost:9292/todos')
@@ -40,6 +42,8 @@ function TodoList() {
           }
         });
         setTodos(updatedTodos);
+        setEditingId(null);
+        setEditingTitle('');
       });
   };
 
@@ -47,10 +51,21 @@ function TodoList() {
     fetch(`http://localhost:9292/todos/${id}`, {
       method: 'DELETE'
     })
-      .then(() => {
-        const filteredTodos = todos.filter(todo => todo.id !== id);
+      .then(response => response.json())
+      .then(data => {
+        const filteredTodos = todos.filter(todo => todo.id !== data.id);
         setTodos(filteredTodos);
       });
+  };
+
+  const editTodo = (id, title) => {
+    setEditingId(id);
+    setEditingTitle(title);
+  };
+
+  const cancelEdit = () => {
+    setEditingId(null);
+    setEditingTitle('');
   };
 
   return (
@@ -59,12 +74,28 @@ function TodoList() {
       <List>
         {todos.map(todo => (
           <List.Item key={todo.id}>
-            <Input
-              type="text"
-              value={todo.title}
-              onChange={event => updateTodo(todo.id, event.target.value)}
-            />
-            <Button onClick={() => deleteTodo(todo.id)}>Delete</Button>
+            {editingId === todo.id ? (
+              <>
+                <Input
+                  type="text"
+                  value={editingTitle}
+                  onChange={event => setEditingTitle(event.target.value)}
+                />
+                <Button onClick={() => updateTodo(todo.id, editingTitle)}>Save</Button>
+                <Button onClick={cancelEdit}>Cancel</Button>
+              </>
+            ) : (
+              <>
+                <Input
+                  type="text"
+                  value={todo.title}
+                  onChange={() => {}}
+                  disabled
+                />
+                <Button onClick={() => editTodo(todo.id, todo.title)}>Edit</Button>
+                <Button onClick={() => deleteTodo(todo.id)}>Delete</Button>
+              </>
+            )}
           </List.Item>
         ))}
         <List.Item>
