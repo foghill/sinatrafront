@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Container, Header, Input, List, Segment } from 'semantic-ui-react';
+import { Button, Header, Input, List } from 'semantic-ui-react';
 
 function TodoList() {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
+  const [editingId, setEditingId] = useState(null);
+  const [editingTitle, setEditingTitle] = useState('');
 
   useEffect(() => {
     fetch('http://localhost:9292/todos')
@@ -40,6 +42,8 @@ function TodoList() {
           }
         });
         setTodos(updatedTodos);
+        setEditingId(null);
+        setEditingTitle('');
       });
   };
 
@@ -54,34 +58,57 @@ function TodoList() {
       });
   };
 
+  const editTodo = (id, title) => {
+    setEditingId(id);
+    setEditingTitle(title);
+  };
+
+  const cancelEdit = () => {
+    setEditingId(null);
+    setEditingTitle('');
+  };
+
   return (
-    <Container style={{ marginTop: '2rem' }}>
-      <Segment style={{ border: '2px solid #2185d0' }}>
-        <Header as="h1" textAlign="center">Todo List</Header>
-        <List divided relaxed>
-          {todos.map(todo => (
-            <List.Item key={todo.id}>
-              <Input
-                fluid
-                value={todo.title}
-                onChange={event => updateTodo(todo.id, event.target.value)}
-              />
-              <Button icon="edit" onClick={() => updateTodoForm(todo.id, todo.title)} />
-              <Button icon="delete" onClick={() => deleteTodo(todo.id)} />
-            </List.Item>
-          ))}
-          <List.Item>
-            <Input
-              fluid
-              placeholder="Enter new todo"
-              value={newTodo}
-              onChange={event => setNewTodo(event.target.value)}
-            />
-            <Button icon="add" onClick={addTodo} />
+    <div style={{margin: '0 auto', maxWidth: 600, border: '1px solid grey', padding: '20px'}}>
+      <Header as="h1">Todo List</Header>
+      <List>
+        {todos.map(todo => (
+          <List.Item key={todo.id}>
+            {editingId === todo.id ? (
+              <>
+                <Input
+                  type="text"
+                  value={editingTitle}
+                  onChange={event => setEditingTitle(event.target.value)}
+                />
+                <Button primary onClick={() => updateTodo(todo.id, editingTitle)}>Save</Button>
+                <Button onClick={cancelEdit}>Cancel</Button>
+              </>
+            ) : (
+              <>
+                <Input
+                  type="text"
+                  value={todo.title}
+                  onChange={() => {}}
+                  disabled
+                />
+                <Button primary onClick={() => editTodo(todo.id, todo.title)}>Edit</Button>
+                <Button negative onClick={() => deleteTodo(todo.id)}>Delete</Button>
+              </>
+            )}
           </List.Item>
-        </List>
-      </Segment>
-    </Container>
+        ))}
+        <List.Item>
+          <Input
+            type="text"
+            value={newTodo}
+            onChange={event => setNewTodo(event.target.value)}
+            placeholder="Enter new task"
+          />
+          <Button positive onClick={addTodo}>Add</Button>
+        </List.Item>
+      </List>
+    </div>
   );
 }
 
