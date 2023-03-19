@@ -5,13 +5,13 @@ function TodoList() {
   const [newTodo, setNewTodo] = useState('');
 
   useEffect(() => {
-    fetch("http://localhost:9292/todos")
+    fetch('http://localhost:9292/todos')
       .then(response => response.json())
       .then(data => setTodos(data))
   }, []);
 
   const addTodo = () => {
-    fetch('/todos', {
+    fetch('http://localhost:9292/todos', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title: newTodo })
@@ -24,7 +24,7 @@ function TodoList() {
   };
 
   const updateTodo = (id, newTitle) => {
-    fetch(`/todos/${id}`, {
+    fetch(`http://localhost:9292/todos/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title: newTitle })
@@ -43,7 +43,7 @@ function TodoList() {
   };
 
   const deleteTodo = id => {
-    fetch(`/todos/${id}`, {
+    fetch(`http://localhost:9292/todos/${id}`, {
       method: 'DELETE'
     })
       .then(response => response.json())
