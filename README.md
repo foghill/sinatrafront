@@ -1,31 +1,31 @@
-#TodoList App
+# TodoList App
 
 This is a simple todo list application built with React and Ruby/Sinatra/ActiveRecord. The frontend was built with React and Semantic UI React, while the backend was built with Ruby, Sinatra, and ActiveRecord.
 
-##Prerequisites
+## Prerequisites
 To run this application, you will need to have the following installed on your system:
 
 Node.js
 Ruby
 PostgreSQL
 
-##Installation
+## Installation
 
-###Frontend
+### Frontend
 
 Clone the repository to your local machine.
 Navigate to the frontend directory.
 Run npm install to install the dependencies.
 Run npm start to start the development server.
 
-###Backend
+### Backend
 
 Navigate to the backend directory.
 Run bundle install to install the dependencies.
 Set up the database by running rake db:create and rake db:migrate.
 Run ruby app.rb to start the server.
 
-##Usage
+## Usage
 
 Once you have the application running, you can access it in your web browser at http://localhost:3000.
 
@@ -35,20 +35,20 @@ To edit a task, click the "Edit" button next to it. This will enable you to chan
 
 To delete a task, click the "Delete" button next to it.
 
-##API Endpoints
+## API Endpoints
 
 The following API endpoints are available:
 
-###Todos
+### Todos
 
-GET /todos: Returns a list of all todos.
-POST /todos: Creates a new todo.
-PUT /todos/:id: Updates a todo with the specified ID.
-DELETE /todos/:id: Deletes a todo with the specified ID.
+* GET /todos: Returns a list of all todos.
+* POST /todos: Creates a new todo.
+* PUT /todos/:id: Updates a todo with the specified ID.
+* DELETE /todos/:id: Deletes a todo with the specified ID.
 
-###Categories
+### Categories
 
-GET /categories: Returns a list of all categories.
-POST /categories: Creates a new category.
-PUT /categories/:id: Updates a category with the specified ID.
-DELETE /categories/:id: Deletes a category with the specified ID.
+* GET /categories: Returns a list of all categories.
+* POST /categories: Creates a new category.
+* PUT /categories/:id: Updates a category with the specified ID.
+* DELETE /categories/:id: Deletes a category with the specified ID.
