@@ -15,11 +15,29 @@ function TodoList() {
     { key: 5, value: "Travel", text: "Travel" },
   ]);
 
-  useEffect(() => {
-    fetch("http://localhost:9292/todos")
-      .then((response) => response.json())
-      .then((data) => setTodos(data));
-  }, []);
+// In your TodoList component
+useEffect(() => {
+  // Fetch todos
+  fetch("http://localhost:9292/todos")
+    .then((response) => response.json())
+    .then((data) => setTodos(data));
+
+  // Fetch categories
+  fetch("http://localhost:9292/categories")
+    .then((response) => response.json())
+    .then((data) =>
+      setCategories(
+        data.map((category) => ({
+          key: category.id,
+          value: category.name,
+          text: category.name,
+        }))
+      )
+    );
+}, []);
+
+
+
 
   const addTodo = () => {
     fetch("http://localhost:9292/todos", {

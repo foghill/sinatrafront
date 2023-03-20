@@ -1,71 +1,42 @@
-# Getting Started with Create React App
+TodoList App
+This is a simple todo list application built with React and Ruby/Sinatra/ActiveRecord. The frontend was built with React and Semantic UI React, while the backend was built with Ruby, Sinatra, and ActiveRecord.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Prerequisites
+To run this application, you will need to have the following installed on your system:
 
-## Available Scripts
+Node.js
+Ruby
+PostgreSQL
+Installation
+Frontend
+Clone the repository to your local machine.
+Navigate to the frontend directory.
+Run npm install to install the dependencies.
+Run npm start to start the development server.
+Backend
+Navigate to the backend directory.
+Run bundle install to install the dependencies.
+Set up the database by running rake db:create and rake db:migrate.
+Run ruby app.rb to start the server.
+Usage
+Once you have the application running, you can access it in your web browser at http://localhost:3000.
 
-In the project directory, you can run:
+You can add a new task by typing in the input field at the bottom of the page and selecting a category from the dropdown. Once you've entered a task and selected a category, click the "Add" button to add it to the list.
 
-### `npm start`
+To edit a task, click the "Edit" button next to it. This will enable you to change the task title and category. Once you've made your changes, click the "Save" button to save them, or click the "Cancel" button to discard them.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+To delete a task, click the "Delete" button next to it.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+API Endpoints
+The following API endpoints are available:
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# phase-3-project-frontend
+Todos
+GET /todos: Returns a list of all todos.
+POST /todos: Creates a new todo.
+PUT /todos/:id: Updates a todo with the specified ID.
+DELETE /todos/:id: Deletes a todo with the specified ID.
+Categories
+GET /categories: Returns a list of all categories.
+POST /categories: Creates a new category.
+PUT /categories/:id: Updates a category with the specified ID.
+DELETE /categories/:id: Deletes a category with the specified ID.
