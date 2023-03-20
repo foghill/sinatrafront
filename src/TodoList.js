@@ -105,7 +105,7 @@ function TodoList() {
             onChange={event => setNewTodo(event.target.value)}
             placeholder="Enter new task"
           />
-          <Button positive onClick={addTodo}>Add</Button>
+          <Button positive onClick={addTodo} disabled={!newTodo}>Add</Button>
         </List.Item>
       </List>
     </div>
