@@ -20,7 +20,7 @@ Run npm start to start the development server.
 
 ### Backend
 
-The backend directory for this project can be found here: [Backend]([http://example.com "Title"](https://github.com/foghill/phase3backendproject)).
+The backend directory for this project can be found here: ([Backend](https://github.com/foghill/phase3backendproject)).
 
 Navigate to the backend directory.
 Run bundle install to install the dependencies.
