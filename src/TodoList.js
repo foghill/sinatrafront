@@ -38,7 +38,12 @@ useEffect(() => {
 
 
 
-
+/* Here is the explanation for the code below:
+1. The addTodo function is called when the user clicks the Add Todo button.
+2. The newTodo and selectedCategory are used to create a new todo.
+3. The new todo is sent to the server using the fetch API.
+4. The new todo is added to the todos array.
+5. The newTodo and selectedCategory states are reset to empty strings. */
   const addTodo = () => {
     fetch("http://localhost:9292/todos", {
       method: "POST",
@@ -53,27 +58,38 @@ useEffect(() => {
       });
   };
 
-  const updateTodo = (id, newTitle) => {
-    fetch(`http://localhost:9292/todos/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title: newTitle, category: selectedCategory }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        const updatedTodos = todos.map((todo) => {
-          if (todo.id === id) {
-            return data;
-          } else {
-            return todo;
-          }
-        });
-        setTodos(updatedTodos);
-        setEditingId(null);
-        setEditingTitle("");
-        setSelectedCategory("");
+  /* The code below does the following:
+1. It takes in a todo's id (which is the number in the URL) and the new title for that todo.
+2. It makes a PUT fetch request to the backend to update the todo with that id.
+3. It updates the todo in state with the data from the response.
+
+This is how we update a todo's title and category. */
+const updateTodo = (id, newTitle, category) => {
+  fetch(`http://localhost:9292/todos/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ title: newTitle, category }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      const updatedTodos = todos.map((todo) => {
+        if (todo.id === id) {
+          return data;
+        } else {
+          return todo;
+        }
       });
-  };
+      setTodos(updatedTodos);
+      setEditingId(null);
+      setEditingTitle("");
+      setSelectedCategory("");
+    });
+};
+
+
+
+
+
 
   const deleteTodo = (id) => {
     fetch(`http://localhost:9292/todos/${id}`, {
@@ -85,6 +101,11 @@ useEffect(() => {
         setTodos(filteredTodos);
       });
   };
+  /* Here is the explanation for the code above:
+1. We use the fetch method to make a DELETE request to the server, and pass the id of the todo we want to delete as a parameter.
+2. We then use the filter method to remove the todo with the corresponding id from the todos array, and update the state using the setTodos method.
+3. We also need to add a button to the Todo component so we can call the deleteTodo function when we click on it. */
+
 
   const editTodo = (id, title) => {
     setEditingId(id);
@@ -121,14 +142,16 @@ useEffect(() => {
                   selection
                   options={categories}
                   name={selectedCategory}
-                  onChange={(event, data) => setSelectedCategory(data.name)}
+                  onChange={(event, data) => setSelectedCategory(data.value)}
+
                 />
-                <Button
-                  primary
-                  onClick={() => updateTodo(todo.id, editingTitle)}
-                >
-                  Save
-                </Button>
+               <Button
+  primary
+  onClick={() => updateTodo(todo.id, editingTitle, selectedCategory)}
+>
+  Save
+</Button>
+
                 <Button onClick={cancelEdit}>Cancel</Button>
               </>
             ) : (
@@ -156,16 +179,19 @@ useEffect(() => {
             onChange={(event) => setNewTodo(event.target.value)}
             placeholder="Enter new task"
           />
-          <Dropdown
-            placeholder="Select category"
-            selection
-            options={categories}
-            name={selectedCategory}
-            onChange={(event, data) => setSelectedCategory(data.name)}
-          />
-          <Button positive onClick={addTodo} disabled={!newTodo}>
-            Add
-          </Button>
+<Dropdown
+  placeholder="Select category"
+  selection
+  options={categories}
+  value={selectedCategory}
+  onChange={(event, data) => setSelectedCategory(data.value)}
+/>
+
+
+          <Button positive onClick={addTodo} disabled={!newTodo || !selectedCategory}>
+  Add
+</Button>
+
         </List.Item>
       </List>
     </div>
